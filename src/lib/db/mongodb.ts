@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
 interface MongooseCache {
   conn: typeof mongoose | null;
   promise: Promise<typeof mongoose> | null;
@@ -22,6 +20,7 @@ const MAX_RETRIES = 3;
 const RETRY_DELAY_MS = 3000;
 
 async function connectDB(): Promise<typeof mongoose> {
+  const MONGODB_URI = process.env.MONGODB_URI;
   if (!MONGODB_URI) {
     console.warn('⚠️ MONGODB_URI not configured. Database features will be unavailable.');
     return mongoose;

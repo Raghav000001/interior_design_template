@@ -2,11 +2,23 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth/auth';
 
 export async function authMiddleware(req: NextRequest) {
+  // First try cookie-based NextAuth session
+  try {
+    const session = await auth();
+    if (session?.user) {
+      return { user: session.user };
+    }
+  } catch {
+    console.log('Error in authMiddleware');
+    // fall through to Bearer token check
+  }
+
+  // Fall back to Bearer token
   const token = req.headers.get('authorization')?.replace('Bearer ', '');
   
   if (!token) {
     return NextResponse.json(
-      { success: false, message: 'Access denied. No token provided.' },
+      { success: false, message: 'Access denied. No authentication provided.' },
       { status: 401 }
     );
   }

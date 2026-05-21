@@ -7,3 +7,4 @@ export { TeamMember } from './team.schema';
 export { Lead } from './lead.schema';
 export { Consultation } from './consultation.schema';
 export { SeoSetting } from './seo.schema';
+export { Brochure } from './brochure.schema';

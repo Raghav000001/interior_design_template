@@ -1,4 +1,5 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, Document } from 'mongoose';
+import mongoose from 'mongoose';
 
 export interface IBlogDocument extends Document {
   title: string;
@@ -36,4 +37,4 @@ blogSchema.index({ slug: 1 });
 blogSchema.index({ category: 1, status: 1 });
 blogSchema.index({ tags: 1 });
 
-export const Blog = model<IBlogDocument>('Blog', blogSchema);
+export const Blog = mongoose.models.Blog ?? mongoose.model<IBlogDocument>('Blog', blogSchema);

@@ -1,4 +1,5 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, Document } from 'mongoose';
+import mongoose from 'mongoose';
 
 export interface IConsultationDocument extends Document {
   name: string;
@@ -37,4 +38,4 @@ consultationSchema.index({ email: 1 });
 consultationSchema.index({ status: 1 });
 consultationSchema.index({ preferredDate: 1 });
 
-export const Consultation = model<IConsultationDocument>('Consultation', consultationSchema);
+export const Consultation = mongoose.models.Consultation ?? mongoose.model<IConsultationDocument>('Consultation', consultationSchema);

@@ -2,6 +2,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { User } from '@/schemas';
 import bcrypt from 'bcryptjs';
+import connectDB from '@/lib/db/mongodb';
 import type { NextAuthConfig } from 'next-auth';
 
 const authConfig: NextAuthConfig = {
@@ -19,6 +20,8 @@ const authConfig: NextAuthConfig = {
 
         const email = credentials.email as string;
         const password = credentials.password as string;
+
+        await connectDB();
 
         const user = await User.findOne({ email: email.toLowerCase() });
         

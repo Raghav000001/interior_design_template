@@ -1,4 +1,5 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, Document } from 'mongoose';
+import mongoose from 'mongoose';
 
 export interface ITestimonialDocument extends Document {
   name: string;
@@ -28,4 +29,4 @@ const testimonialSchema = new Schema<ITestimonialDocument>(
 testimonialSchema.index({ approved: 1 });
 testimonialSchema.index({ company: 1 });
 
-export const Testimonial = model<ITestimonialDocument>('Testimonial', testimonialSchema);
+export const Testimonial = mongoose.models.Testimonial ?? mongoose.model<ITestimonialDocument>('Testimonial', testimonialSchema);

@@ -7,3 +7,4 @@ export * from './team.schema';
 export * from './lead.schema';
 export * from './consultation.schema';
 export * from './seo.schema';
+export * from './brochure.schema';

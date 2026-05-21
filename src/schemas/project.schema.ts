@@ -1,4 +1,5 @@
-import { Schema, model, Document, Types } from 'mongoose';
+import { Schema, Document } from 'mongoose';
+import mongoose from 'mongoose';
 
 export interface IProjectDocument extends Document {
   title: string;
@@ -35,4 +36,4 @@ projectSchema.index({ title: 'text', description: 'text', tags: 'text' });
 projectSchema.index({ category: 1, status: 1 });
 projectSchema.index({ featured: 1, status: 1 });
 
-export const Project = model<IProjectDocument>('Project', projectSchema);
+export const Project = mongoose.models.Project ?? mongoose.model<IProjectDocument>('Project', projectSchema);

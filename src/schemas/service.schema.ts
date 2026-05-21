@@ -1,4 +1,5 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, Document } from 'mongoose';
+import mongoose from 'mongoose';
 
 export interface IServiceDocument extends Document {
   title: string;
@@ -27,4 +28,4 @@ const serviceSchema = new Schema<IServiceDocument>(
 
 serviceSchema.index({ isActive: 1, order: 1 });
 
-export const Service = model<IServiceDocument>('Service', serviceSchema);
+export const Service = mongoose.models.Service ?? mongoose.model<IServiceDocument>('Service', serviceSchema);

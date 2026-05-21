@@ -1,4 +1,5 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, Document } from 'mongoose';
+import mongoose from 'mongoose';
 
 export interface ISeoSettingDocument extends Document {
   page: string;
@@ -23,4 +24,4 @@ const seoSettingSchema = new Schema<ISeoSettingDocument>(
   { timestamps: true }
 );
 
-export const SeoSetting = model<ISeoSettingDocument>('SeoSetting', seoSettingSchema);
+export const SeoSetting = mongoose.models.SeoSetting ?? mongoose.model<ISeoSettingDocument>('SeoSetting', seoSettingSchema);

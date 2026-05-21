@@ -1,4 +1,5 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, Document } from 'mongoose';
+import mongoose from 'mongoose';
 
 export interface ITeamMemberDocument extends Document {
   name: string;
@@ -34,4 +35,4 @@ const teamMemberSchema = new Schema<ITeamMemberDocument>(
 teamMemberSchema.index({ order: 1 });
 teamMemberSchema.index({ isActive: 1 });
 
-export const TeamMember = model<ITeamMemberDocument>('TeamMember', teamMemberSchema);
+export const TeamMember = mongoose.models.TeamMember ?? mongoose.model<ITeamMemberDocument>('TeamMember', teamMemberSchema);

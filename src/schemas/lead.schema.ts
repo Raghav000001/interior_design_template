@@ -1,4 +1,5 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, Document } from 'mongoose';
+import mongoose from 'mongoose';
 
 export interface ILeadDocument extends Document {
   name: string;
@@ -31,4 +32,4 @@ leadSchema.index({ email: 1 });
 leadSchema.index({ status: 1 });
 leadSchema.index({ createdAt: -1 });
 
-export const Lead = model<ILeadDocument>('Lead', leadSchema);
+export const Lead = mongoose.models.Lead ?? mongoose.model<ILeadDocument>('Lead', leadSchema);
