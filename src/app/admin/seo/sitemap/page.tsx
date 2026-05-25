@@ -11,18 +11,19 @@ import { Switch } from "@/components/ui/switch";
 import { Layers, Globe, RefreshCw, ExternalLink, Loader2, CheckCircle, AlertCircle, Copy, Check } from "lucide-react";
 
 export default function SitemapPage() {
-  const [lastGenerated, setLastGenerated] = React.useState<string | null>(null);
+  const [lastGenerated, setLastGenerated] = React.useState<string | null>(() => {
+    try {
+      return localStorage.getItem("sitemap_last_generated");
+    } catch {
+      return null;
+    }
+  });
   const [generating, setGenerating] = React.useState(false);
   const [copied, setCopied] = React.useState(false);
   const [includeImages, setIncludeImages] = React.useState(true);
   const [includePages, setIncludePages] = React.useState(true);
   const [includeBlogs, setIncludeBlogs] = React.useState(true);
   const [includeProjects, setIncludeProjects] = React.useState(true);
-
-  React.useEffect(() => {
-    const saved = localStorage.getItem("sitemap_last_generated");
-    if (saved) setLastGenerated(saved);
-  }, []);
 
   const handleGenerate = async () => {
     setGenerating(true);

@@ -88,21 +88,19 @@ const defaultJson = templates["Organization"];
 
 export default function SchemaPage() {
   const [jsonInput, setJsonInput] = React.useState(defaultJson);
-  const [savedSchemas, setSavedSchemas] = React.useState<SchemaTemplate[]>([]);
+  const [savedSchemas, setSavedSchemas] = React.useState<SchemaTemplate[]>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [selectedTemplate, setSelectedTemplate] = React.useState("Organization");
-  const [loaded, setLoaded] = React.useState(false);
   const [validationResult, setValidationResult] = React.useState<{ valid: boolean; message: string } | null>(null);
   const [copied, setCopied] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
   const [saveMessage, setSaveMessage] = React.useState<string | null>(null);
-
-  React.useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) setSavedSchemas(JSON.parse(saved));
-    } catch { /* ignore */ }
-    setLoaded(true);
-  }, []);
 
   const handleTemplateChange = (template: string) => {
     setSelectedTemplate(template);

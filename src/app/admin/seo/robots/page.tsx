@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Bot, Save, Loader2, Copy, Check, RotateCcw, AlertCircle, CheckCircle } from "lucide-react";
 
@@ -38,19 +37,16 @@ Crawl-delay: 2
 const STORAGE_KEY = "admin_robots_txt";
 
 export default function RobotsPage() {
-  const [content, setContent] = React.useState(defaultRobotsTxt);
-  const [loaded, setLoaded] = React.useState(false);
+  const [content, setContent] = React.useState(() => {
+    try {
+      return localStorage.getItem(STORAGE_KEY) || defaultRobotsTxt;
+    } catch {
+      return defaultRobotsTxt;
+    }
+  });
   const [saving, setSaving] = React.useState(false);
   const [copied, setCopied] = React.useState(false);
   const [saveMessage, setSaveMessage] = React.useState<string | null>(null);
-
-  React.useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) setContent(saved);
-    } catch { /* ignore */ }
-    setLoaded(true);
-  }, []);
 
   const handleSave = () => {
     setSaving(true);
@@ -80,14 +76,6 @@ export default function RobotsPage() {
   };
 
   const lineCount = content.split("\n").length;
-
-  if (!loaded) {
-    return (
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center justify-center min-h-[400px]">
-        <div className="flex flex-col items-center gap-3"><Loader2 className="h-8 w-8 animate-spin text-primary" /><p className="text-sm text-muted-foreground">Loading robots.txt editor...</p></div>
-      </motion.div>
-    );
-  }
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">

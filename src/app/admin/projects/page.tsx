@@ -65,28 +65,29 @@ export default function ProjectsPage() {
   });
   const [submitting, setSubmitting] = React.useState(false);
 
-  const fetchProjects = React.useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const params = new URLSearchParams();
-      if (searchQuery) params.set("search", searchQuery);
-      if (selectedCategory !== "all") params.set("category", selectedCategory);
-      params.set("limit", "100");
-      const res = await fetch(`/api/projects?${params}`);
-      const json = await res.json();
-      if (!json.success) throw new Error(json.message || "Failed to fetch");
-      setProjects(json.data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load projects");
-    } finally {
-      setLoading(false);
-    }
-  }, [searchQuery, selectedCategory]);
-
   React.useEffect(() => {
+    let ignore = false;
+    async function fetchProjects() {
+      try {
+        const params = new URLSearchParams();
+        if (searchQuery) params.set("search", searchQuery);
+        if (selectedCategory !== "all") params.set("category", selectedCategory);
+        params.set("limit", "100");
+        const res = await fetch(`/api/projects?${params}`);
+        const json = await res.json();
+        if (ignore) return;
+        if (!json.success) throw new Error(json.message || "Failed to fetch");
+        setProjects(json.data);
+      } catch (err) {
+        if (ignore) return;
+        setError(err instanceof Error ? err.message : "Failed to load projects");
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    }
     fetchProjects();
-  }, [fetchProjects]);
+    return () => { ignore = true; };
+  }, [searchQuery, selectedCategory]);
 
   const openCreateDialog = () => {
     setEditingProject(null);

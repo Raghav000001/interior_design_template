@@ -52,25 +52,28 @@ export default function ServicesPage() {
   });
   const [submitting, setSubmitting] = React.useState(false);
 
-  const fetchServices = React.useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const params = new URLSearchParams();
-      if (searchQuery) params.set("search", searchQuery);
-      params.set("limit", "100");
-      const res = await fetch(`/api/services?${params}`);
-      const json = await res.json();
-      if (!json.success) throw new Error(json.message || "Failed to fetch");
-      setServices(json.data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load services");
-    } finally {
-      setLoading(false);
+  React.useEffect(() => {
+    let ignore = false;
+    async function fetchServices() {
+      try {
+        const params = new URLSearchParams();
+        if (searchQuery) params.set("search", searchQuery);
+        params.set("limit", "100");
+        const res = await fetch(`/api/services?${params}`);
+        const json = await res.json();
+        if (ignore) return;
+        if (!json.success) throw new Error(json.message || "Failed to fetch");
+        setServices(json.data);
+      } catch (err) {
+        if (ignore) return;
+        setError(err instanceof Error ? err.message : "Failed to load services");
+      } finally {
+        if (!ignore) setLoading(false);
+      }
     }
+    fetchServices();
+    return () => { ignore = true; };
   }, [searchQuery]);
-
-  React.useEffect(() => { fetchServices(); }, [fetchServices]);
 
   const openCreateDialog = () => {
     setEditingService(null);

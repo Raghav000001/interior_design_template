@@ -38,24 +38,27 @@ export default function TeamPage() {
   const [formData, setFormData] = React.useState({ name: "", role: "", bio: "", email: "", phone: "", linkedin: "", twitter: "", isActive: true });
   const [submitting, setSubmitting] = React.useState(false);
 
-  const fetchMembers = React.useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const params = new URLSearchParams();
-      params.set("limit", "100");
-      const res = await fetch(`/api/team?${params}`);
-      const json = await res.json();
-      if (!json.success) throw new Error(json.message || "Failed to fetch");
-      setMembers(json.data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load team");
-    } finally {
-      setLoading(false);
+  React.useEffect(() => {
+    let ignore = false;
+    async function fetchMembers() {
+      try {
+        const params = new URLSearchParams();
+        params.set("limit", "100");
+        const res = await fetch(`/api/team?${params}`);
+        const json = await res.json();
+        if (ignore) return;
+        if (!json.success) throw new Error(json.message || "Failed to fetch");
+        setMembers(json.data);
+      } catch (err) {
+        if (ignore) return;
+        setError(err instanceof Error ? err.message : "Failed to load team");
+      } finally {
+        if (!ignore) setLoading(false);
+      }
     }
+    fetchMembers();
+    return () => { ignore = true; };
   }, []);
-
-  React.useEffect(() => { fetchMembers(); }, [fetchMembers]);
 
   const openCreateDialog = () => {
     setEditingMember(null);

@@ -70,21 +70,16 @@ const defaultSettings: Settings = {
 const STORAGE_KEY = "admin_settings";
 
 export default function SettingsPage() {
-  const [settings, setSettings] = React.useState<Settings>(defaultSettings);
-  const [loaded, setLoaded] = React.useState(false);
-  const [saving, setSaving] = React.useState(false);
-  const [saveMessage, setSaveMessage] = React.useState<string | null>(null);
-
-  React.useEffect(() => {
+  const [settings, setSettings] = React.useState<Settings>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved) as Settings;
-        setSettings({ ...defaultSettings, ...parsed });
-      }
-    } catch { /* ignore */ }
-    setLoaded(true);
-  }, []);
+      return saved ? { ...defaultSettings, ...JSON.parse(saved) } : defaultSettings;
+    } catch {
+      return defaultSettings;
+    }
+  });
+  const [saving, setSaving] = React.useState(false);
+  const [saveMessage, setSaveMessage] = React.useState<string | null>(null);
 
   const update = <K extends keyof Settings>(key: K, value: Settings[K]) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
@@ -103,14 +98,6 @@ export default function SettingsPage() {
       setSaving(false);
     }
   };
-
-  if (!loaded) {
-    return (
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center justify-center min-h-[400px]">
-        <div className="flex flex-col items-center gap-3"><Loader2 className="h-8 w-8 animate-spin text-primary" /><p className="text-sm text-muted-foreground">Loading settings...</p></div>
-      </motion.div>
-    );
-  }
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">

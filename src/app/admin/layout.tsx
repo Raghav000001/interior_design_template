@@ -3,7 +3,6 @@
 import { SessionProvider, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { ThemeProvider } from "@/components/providers/theme-provider";
 import { AdminLayout } from "@/components/layout/admin-layout";
 
 function AuthGuard({ children }: { children: React.ReactNode }) {
@@ -41,16 +40,9 @@ export default function AdminRootLayout({
 }) {
   return (
     <SessionProvider>
-      <ThemeProvider
-        attribute="data-theme"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
-        <AuthGuard>
-          <AdminLayout>{children}</AdminLayout>
-        </AuthGuard>
-      </ThemeProvider>
+      <AuthGuard>
+        <AdminLayout>{children}</AdminLayout>
+      </AuthGuard>
     </SessionProvider>
   );
 }

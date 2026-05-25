@@ -6,9 +6,9 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # PROJECT KNOWLEDGE BASE
 
-**Generated:** 2026-05-21  
-**Commit:** 73f6fad  
-**Branch:** master
+**Generated:** 2026-05-25  
+**Commit:** 97a1bce  
+**Branch:** main
 
 ## OVERVIEW
 Next.js 16 App Router project with MongoDB/Mongoose, NextAuth v5, Zod validations, and custom API docs. Single package (no workspace). Interior design business admin with portfolio, blog, SEO, and lead management.
@@ -42,6 +42,7 @@ Next.js 16 App Router project with MongoDB/Mongoose, NextAuth v5, Zod validation
 ## WHERE TO LOOK
 | Task | Location | Notes |
 |------|----------|-------|
+| Homepage | `src/app/page.tsx` | Public landing page |
 | Pages/routes | `src/app/**/page.tsx` | App Router, route groups `(auth)` |
 | API routes | `src/app/api/**/route.ts` | REST CRUD + dynamic `[id]` segments |
 | Admin pages | `src/app/admin/**/page.tsx` | 17 subpages including SEO subtree |
@@ -99,3 +100,4 @@ npm run start    # Start production server
 - `.env.example` exists but is incomplete vs runtime usage
 - `mongodb.ts` tolerates missing `MONGODB_URI` with a warning (not a hard fail)
 - `swagger.ts` falls back to `http://localhost:3000` for `NEXTAUTH_URL`
+

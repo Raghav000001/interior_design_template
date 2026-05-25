@@ -8,7 +8,7 @@ Reusable UI components organized as a global library (not feature-colocated).
 ## STRUCTURE
 ```
 components/
-├── ui/                 # Reusable UI primitives (13 files)
+├── ui/                 # Reusable UI primitives (16 files)
 │                       # Buttons, inputs, cards, modals, etc.
 ├── layout/             # Layout shells (3 files)
 │                       # admin-layout.tsx, etc.

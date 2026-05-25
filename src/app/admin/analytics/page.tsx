@@ -48,22 +48,25 @@ export default function AnalyticsPage() {
   const [error, setError] = React.useState<string | null>(null);
   const [dateRange, setDateRange] = React.useState<string>("30d");
 
-  const fetchStats = React.useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const res = await fetch("/api/dashboard/statistics");
-      const json = await res.json();
-      if (!json.success) throw new Error(json.message || "Failed to fetch");
-      setStats(json.data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load analytics");
-    } finally {
-      setLoading(false);
+  React.useEffect(() => {
+    let ignore = false;
+    async function fetchStats() {
+      try {
+        const res = await fetch("/api/dashboard/statistics");
+        const json = await res.json();
+        if (ignore) return;
+        if (!json.success) throw new Error(json.message || "Failed to fetch");
+        setStats(json.data);
+      } catch (err) {
+        if (ignore) return;
+        setError(err instanceof Error ? err.message : "Failed to load analytics");
+      } finally {
+        if (!ignore) setLoading(false);
+      }
     }
+    fetchStats();
+    return () => { ignore = true; };
   }, []);
-
-  React.useEffect(() => { fetchStats(); }, [fetchStats]);
 
   const categoryChartData = stats
     ? Object.entries(stats.projectsByCategory).map(([name, value]) => ({ name: name.charAt(0).toUpperCase() + name.slice(1), value }))
