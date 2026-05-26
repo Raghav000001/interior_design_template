@@ -43,6 +43,8 @@ Next.js 16 App Router project with MongoDB/Mongoose, NextAuth v5, Zod validation
 | Task | Location | Notes |
 |------|----------|-------|
 | Homepage | `src/app/page.tsx` | Public landing page |
+| Blogs | `src/app/blogs/page.tsx` | Featured stories + glassmorphism blog card grid |
+| Blog detail | `src/app/blogs/[id]/page.tsx` | Full article with hero, content, related posts |
 | Pages/routes | `src/app/**/page.tsx` | App Router, route groups `(auth)` |
 | API routes | `src/app/api/**/route.ts` | REST CRUD + dynamic `[id]` segments |
 | Admin pages | `src/app/admin/**/page.tsx` | 17 subpages including SEO subtree |

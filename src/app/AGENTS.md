@@ -9,6 +9,7 @@ App Router with route groups, admin dashboard (17 pages), REST API (24 handlers)
 ```
 app/
 ├── page.tsx                    # Homepage
+├── blogs/                      # Blog listing + detail pages
 ├── layout.tsx                  # Root layout
 ├── (auth)/                     # Route group (not in URL)
 │   └── login/page.tsx          # Login page

@@ -2,6 +2,7 @@
 
 import ScrollExpandMedia from "@/components/ui/scroll-expand-media";
 import ExpertiseSection from "@/components/ui/expertise-section";
+import TeamSection from "@/components/ui/team-section";
 import { PortfolioSection } from "@/components/ui/portfolio-section";
 import Testimonials from "@/components/ui/testimonials-columns-1";
 import CtaSection from "@/components/ui/cta-section";
@@ -19,6 +20,7 @@ export default function Home() {
       />
 
       <ExpertiseSection />
+      <TeamSection />
       <PortfolioSection />
       <Testimonials />
       <CtaSection />

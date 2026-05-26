@@ -198,21 +198,22 @@ export function PortfolioSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="mb-4"
+          className="mb-4 text-center"
         >
-          <div className="flex items-center gap-3 mb-8">
+          <div className="flex items-center justify-center gap-3 mb-8">
             <div className="h-[2px] w-8 bg-gradient-to-r from-pink-400 to-orange-400" />
             <span className="text-[12px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
               Our Portfolio
             </span>
+            <div className="h-[2px] w-8 bg-gradient-to-l from-pink-400 to-orange-400" />
           </div>
-          <h2 className="text-[52px] md:text-[60px] leading-[56px] md:leading-[64px] tracking-tight font-bold max-w-2xl">
+          <h2 className="text-[52px] md:text-[60px] leading-[56px] md:leading-[64px] tracking-tight font-bold max-w-2xl mx-auto">
             Featured{" "}
             <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               Works
             </span>
           </h2>
-          <p className="mt-4 text-muted-foreground max-w-xl text-lg">
+          <p className="mt-4 text-muted-foreground max-w-xl mx-auto text-lg">
             Explore our curated collection of interior design projects spanning residential,
             commercial, office, and hospitality spaces.
           </p>

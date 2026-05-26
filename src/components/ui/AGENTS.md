@@ -8,6 +8,8 @@
 ## FILES
 | File | Base Library | Purpose |
 |------|-------------|---------|
+| `blog-posts.tsx` | Custom | Story/article card grid with ratings, views, background images |
+| `glass-blog-card-shadcnui.tsx` | Framer Motion | Glassmorphism blog card with Avatar, Badge, hover overlay |
 | `button.tsx` | Custom | Primary/secondary/outline button variants |
 | `card.tsx` | Custom | Content containers with header/footer |
 | `dialog.tsx` | Radix Dialog | Modal dialogs with overlay |
