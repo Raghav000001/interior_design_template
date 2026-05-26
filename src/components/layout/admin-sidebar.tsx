@@ -256,7 +256,7 @@ export function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps) {
             </AnimatePresence>
           </button>
           <button
-            onClick={() => signOut({ callbackUrl: "/login" })}
+            onClick={() => signOut({ callbackUrl: typeof window !== "undefined" ? `${window.location.origin}/login` : "/login" })}
             className={cn(
               "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all hover:bg-sidebar-accent",
               "text-destructive hover:text-destructive"
