@@ -1,8 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { AdminSidebar } from "./admin-sidebar";
 import { AdminNavbar } from "./admin-navbar";
 import { cn } from "@/lib/utils/cn";
@@ -40,17 +38,6 @@ export function AdminLayout({ children }: AdminLayoutProps) {
           </div>
         </div>
       )}
-
-      {/* Mobile menu button */}
-      <div className="fixed top-4 left-4 z-30 lg:hidden">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => setMobileOpen(true)}
-        >
-          <Menu className="h-5 w-5" />
-        </Button>
-      </div>
 
       {/* Navbar */}
       <AdminNavbar
