@@ -161,14 +161,6 @@ export default function SchemaPage() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   };
 
-  if (!loaded) {
-    return (
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center justify-center min-h-[400px]">
-        <div className="flex flex-col items-center gap-3"><Loader2 className="h-8 w-8 animate-spin text-primary" /><p className="text-sm text-muted-foreground">Loading schema editor...</p></div>
-      </motion.div>
-    );
-  }
-
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

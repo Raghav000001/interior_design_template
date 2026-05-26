@@ -35,28 +35,30 @@ export default function TestimonialsPage() {
   const [editingTestimonial, setEditingTestimonial] = React.useState<Testimonial | null>(null);
   const [formData, setFormData] = React.useState({ name: "", role: "", company: "", content: "", rating: 5, approved: true });
   const [submitting, setSubmitting] = React.useState(false);
+  const mountedRef = React.useRef(true);
+
+  async function fetchTestimonials() {
+    try {
+      const params = new URLSearchParams();
+      if (searchQuery) params.set("search", searchQuery);
+      params.set("limit", "100");
+      const res = await fetch(`/api/testimonials?${params}`);
+      const json = await res.json();
+      if (!mountedRef.current) return;
+      if (!json.success) throw new Error(json.message || "Failed to fetch");
+      setTestimonials(json.data);
+    } catch (err) {
+      if (!mountedRef.current) return;
+      setError(err instanceof Error ? err.message : "Failed to load testimonials");
+    } finally {
+      if (mountedRef.current) setLoading(false);
+    }
+  }
 
   React.useEffect(() => {
-    let ignore = false;
-    async function fetchTestimonials() {
-      try {
-        const params = new URLSearchParams();
-        if (searchQuery) params.set("search", searchQuery);
-        params.set("limit", "100");
-        const res = await fetch(`/api/testimonials?${params}`);
-        const json = await res.json();
-        if (ignore) return;
-        if (!json.success) throw new Error(json.message || "Failed to fetch");
-        setTestimonials(json.data);
-      } catch (err) {
-        if (ignore) return;
-        setError(err instanceof Error ? err.message : "Failed to load testimonials");
-      } finally {
-        if (!ignore) setLoading(false);
-      }
-    }
+    mountedRef.current = true;
     fetchTestimonials();
-    return () => { ignore = true; };
+    return () => { mountedRef.current = false; };
   }, [searchQuery]);
 
   const openCreateDialog = () => {

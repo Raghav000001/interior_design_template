@@ -37,27 +37,29 @@ export default function TeamPage() {
   const [editingMember, setEditingMember] = React.useState<TeamMember | null>(null);
   const [formData, setFormData] = React.useState({ name: "", role: "", bio: "", email: "", phone: "", linkedin: "", twitter: "", isActive: true });
   const [submitting, setSubmitting] = React.useState(false);
+  const mountedRef = React.useRef(true);
+
+  async function fetchMembers() {
+    try {
+      const params = new URLSearchParams();
+      params.set("limit", "100");
+      const res = await fetch(`/api/team?${params}`);
+      const json = await res.json();
+      if (!mountedRef.current) return;
+      if (!json.success) throw new Error(json.message || "Failed to fetch");
+      setMembers(json.data);
+    } catch (err) {
+      if (!mountedRef.current) return;
+      setError(err instanceof Error ? err.message : "Failed to load team");
+    } finally {
+      if (mountedRef.current) setLoading(false);
+    }
+  }
 
   React.useEffect(() => {
-    let ignore = false;
-    async function fetchMembers() {
-      try {
-        const params = new URLSearchParams();
-        params.set("limit", "100");
-        const res = await fetch(`/api/team?${params}`);
-        const json = await res.json();
-        if (ignore) return;
-        if (!json.success) throw new Error(json.message || "Failed to fetch");
-        setMembers(json.data);
-      } catch (err) {
-        if (ignore) return;
-        setError(err instanceof Error ? err.message : "Failed to load team");
-      } finally {
-        if (!ignore) setLoading(false);
-      }
-    }
+    mountedRef.current = true;
     fetchMembers();
-    return () => { ignore = true; };
+    return () => { mountedRef.current = false; };
   }, []);
 
   const openCreateDialog = () => {

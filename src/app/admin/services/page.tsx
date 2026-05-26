@@ -51,28 +51,30 @@ export default function ServicesPage() {
     isActive: true,
   });
   const [submitting, setSubmitting] = React.useState(false);
+  const mountedRef = React.useRef(true);
+
+  async function fetchServices() {
+    try {
+      const params = new URLSearchParams();
+      if (searchQuery) params.set("search", searchQuery);
+      params.set("limit", "100");
+      const res = await fetch(`/api/services?${params}`);
+      const json = await res.json();
+      if (!mountedRef.current) return;
+      if (!json.success) throw new Error(json.message || "Failed to fetch");
+      setServices(json.data);
+    } catch (err) {
+      if (!mountedRef.current) return;
+      setError(err instanceof Error ? err.message : "Failed to load services");
+    } finally {
+      if (mountedRef.current) setLoading(false);
+    }
+  }
 
   React.useEffect(() => {
-    let ignore = false;
-    async function fetchServices() {
-      try {
-        const params = new URLSearchParams();
-        if (searchQuery) params.set("search", searchQuery);
-        params.set("limit", "100");
-        const res = await fetch(`/api/services?${params}`);
-        const json = await res.json();
-        if (ignore) return;
-        if (!json.success) throw new Error(json.message || "Failed to fetch");
-        setServices(json.data);
-      } catch (err) {
-        if (ignore) return;
-        setError(err instanceof Error ? err.message : "Failed to load services");
-      } finally {
-        if (!ignore) setLoading(false);
-      }
-    }
+    mountedRef.current = true;
     fetchServices();
-    return () => { ignore = true; };
+    return () => { mountedRef.current = false; };
   }, [searchQuery]);
 
   const openCreateDialog = () => {

@@ -52,6 +52,7 @@ export default function ProjectsPage() {
   const [error, setError] = React.useState<string | null>(null);
   const [searchQuery, setSearchQuery] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState("all");
+  const mountedRef = React.useRef(true);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [editingProject, setEditingProject] = React.useState<Project | null>(null);
   const [formData, setFormData] = React.useState({
@@ -65,28 +66,29 @@ export default function ProjectsPage() {
   });
   const [submitting, setSubmitting] = React.useState(false);
 
-  React.useEffect(() => {
-    let ignore = false;
-    async function fetchProjects() {
-      try {
-        const params = new URLSearchParams();
-        if (searchQuery) params.set("search", searchQuery);
-        if (selectedCategory !== "all") params.set("category", selectedCategory);
-        params.set("limit", "100");
-        const res = await fetch(`/api/projects?${params}`);
-        const json = await res.json();
-        if (ignore) return;
-        if (!json.success) throw new Error(json.message || "Failed to fetch");
-        setProjects(json.data);
-      } catch (err) {
-        if (ignore) return;
-        setError(err instanceof Error ? err.message : "Failed to load projects");
-      } finally {
-        if (!ignore) setLoading(false);
-      }
+  async function fetchProjects() {
+    try {
+      const params = new URLSearchParams();
+      if (searchQuery) params.set("search", searchQuery);
+      if (selectedCategory !== "all") params.set("category", selectedCategory);
+      params.set("limit", "100");
+      const res = await fetch(`/api/projects?${params}`);
+      const json = await res.json();
+      if (!mountedRef.current) return;
+      if (!json.success) throw new Error(json.message || "Failed to fetch");
+      setProjects(json.data);
+    } catch (err) {
+      if (!mountedRef.current) return;
+      setError(err instanceof Error ? err.message : "Failed to load projects");
+    } finally {
+      if (mountedRef.current) setLoading(false);
     }
+  }
+
+  React.useEffect(() => {
+    mountedRef.current = true;
     fetchProjects();
-    return () => { ignore = true; };
+    return () => { mountedRef.current = false; };
   }, [searchQuery, selectedCategory]);
 
   const openCreateDialog = () => {

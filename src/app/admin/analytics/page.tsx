@@ -47,25 +47,27 @@ export default function AnalyticsPage() {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
   const [dateRange, setDateRange] = React.useState<string>("30d");
+  const mountedRef = React.useRef(true);
+
+  async function fetchStats() {
+    try {
+      const res = await fetch("/api/dashboard/statistics");
+      const json = await res.json();
+      if (!mountedRef.current) return;
+      if (!json.success) throw new Error(json.message || "Failed to fetch");
+      setStats(json.data);
+    } catch (err) {
+      if (!mountedRef.current) return;
+      setError(err instanceof Error ? err.message : "Failed to load analytics");
+    } finally {
+      if (mountedRef.current) setLoading(false);
+    }
+  }
 
   React.useEffect(() => {
-    let ignore = false;
-    async function fetchStats() {
-      try {
-        const res = await fetch("/api/dashboard/statistics");
-        const json = await res.json();
-        if (ignore) return;
-        if (!json.success) throw new Error(json.message || "Failed to fetch");
-        setStats(json.data);
-      } catch (err) {
-        if (ignore) return;
-        setError(err instanceof Error ? err.message : "Failed to load analytics");
-      } finally {
-        if (!ignore) setLoading(false);
-      }
-    }
+    mountedRef.current = true;
     fetchStats();
-    return () => { ignore = true; };
+    return () => { mountedRef.current = false; };
   }, []);
 
   const categoryChartData = stats
