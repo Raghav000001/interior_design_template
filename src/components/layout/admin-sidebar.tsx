@@ -3,6 +3,7 @@
 import * as React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 import { useTheme } from "@/components/providers/theme-provider";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils/cn";
@@ -29,6 +30,7 @@ import {
   ChevronRight,
   Sun,
   Moon,
+  LogOut,
 } from "lucide-react";
 
 interface NavItem {
@@ -228,7 +230,7 @@ export function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps) {
         </nav>
 
         {/* Theme Toggle */}
-        <div className="border-t border-sidebar-border p-4">
+        <div className="border-t border-sidebar-border p-4 space-y-1">
           <button
             onClick={toggleTheme}
             className={cn(
@@ -249,6 +251,26 @@ export function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps) {
                   exit={{ opacity: 0 }}
                 >
                   {isDark ? "Light Mode" : "Dark Mode"}
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </button>
+          <button
+            onClick={() => signOut({ callbackUrl: "/login" })}
+            className={cn(
+              "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all hover:bg-sidebar-accent",
+              "text-destructive hover:text-destructive"
+            )}
+          >
+            <LogOut className="h-5 w-5" />
+            <AnimatePresence mode="wait">
+              {!collapsed && (
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  Log out
                 </motion.span>
               )}
             </AnimatePresence>
