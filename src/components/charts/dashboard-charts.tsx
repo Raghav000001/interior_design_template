@@ -61,7 +61,7 @@ function ChartCard({ title, children }: ChartCardProps) {
 export function LeadsChart() {
   return (
     <ChartCard title="Lead Trends">
-      <div className="h-[200px]">
+      <div className="h-[180px] sm:h-[200px]">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={leadsData}>
             <defs>
@@ -106,7 +106,7 @@ export function LeadsChart() {
 export function ProjectsChart() {
   return (
     <ChartCard title="Projects by Category">
-      <div className="h-[200px]">
+      <div className="h-[180px] sm:h-[200px]">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
@@ -139,7 +139,7 @@ export function ProjectsChart() {
 export function ConsultationsChart() {
   return (
     <ChartCard title="Consultations">
-      <div className="h-[200px]">
+      <div className="h-[180px] sm:h-[200px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={consultationData}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border)/50)" />

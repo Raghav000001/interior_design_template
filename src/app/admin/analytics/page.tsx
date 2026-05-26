@@ -134,7 +134,7 @@ export default function AnalyticsPage() {
             <CardTitle className="text-base font-medium">Projects by Category</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-[200px]">
+            <div className="h-[180px] sm:h-[200px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie data={categoryChartData} cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={2} dataKey="value">
@@ -163,7 +163,7 @@ export default function AnalyticsPage() {
             <CardTitle className="text-base font-medium">Leads by Status</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-[200px]">
+            <div className="h-[180px] sm:h-[200px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={leadsStatusData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border)/50)" />

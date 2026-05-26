@@ -110,7 +110,7 @@ export default function SettingsPage() {
       </div>
 
       <Tabs defaultValue="brand" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-5 lg:w-auto lg:inline-flex">
+        <TabsList className="w-full overflow-x-auto flex-nowrap lg:w-auto lg:inline-flex">
           <TabsTrigger value="brand">Brand</TabsTrigger>
           <TabsTrigger value="contact">Contact</TabsTrigger>
           <TabsTrigger value="social">Social</TabsTrigger>

@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
 import { useTheme } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils/cn";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -57,38 +56,40 @@ export function AdminNavbar({ sidebarCollapsed, onMenuClick }: AdminNavbarProps)
   const isDark = resolvedTheme === "dark";
 
   return (
-    <motion.header
-      initial={false}
-      animate={{
-        marginLeft: sidebarCollapsed ? 72 : 280,
-      }}
-      transition={{ duration: 0.2, ease: "easeInOut" }}
-      className="fixed top-0 right-0 z-30 h-16 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+    <header
+      className={cn(
+        "fixed top-0 right-0 z-30 h-16 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+        "transition-[margin-left] duration-200 ease-in-out",
+        sidebarCollapsed ? "lg:ml-[72px]" : "lg:ml-[280px]"
+      )}
     >
-      <div className="flex h-full items-center justify-between px-6">
+      <div className="flex h-full items-center justify-between px-4 sm:px-6">
         {/* Left side */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4 min-w-0">
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden"
+            className="lg:hidden shrink-0"
             onClick={onMenuClick}
           >
             <Menu className="h-5 w-5" />
           </Button>
 
           {/* Breadcrumbs */}
-          <nav className="flex items-center gap-2 text-sm">
+          <nav className="flex items-center gap-1.5 sm:gap-2 text-sm min-w-0">
             {breadcrumbs.map((crumb, index) => (
               <React.Fragment key={index}>
                 {index > 0 && (
-                  <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                  <ChevronRight className={cn(
+                    "h-4 w-4 text-muted-foreground shrink-0",
+                    index < breadcrumbs.length - 1 && "hidden sm:inline"
+                  )} />
                 )}
                 <span
                   className={cn(
                     index === breadcrumbs.length - 1
-                      ? "font-medium text-foreground"
-                      : "text-muted-foreground"
+                      ? "font-medium text-foreground truncate"
+                      : "text-muted-foreground hidden sm:inline"
                   )}
                 >
                   {crumb}
@@ -99,7 +100,7 @@ export function AdminNavbar({ sidebarCollapsed, onMenuClick }: AdminNavbarProps)
         </div>
 
         {/* Right side */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-1 sm:gap-4 shrink-0">
           {/* Search */}
           <div className="hidden md:flex items-center">
             <div className="relative">
@@ -107,7 +108,7 @@ export function AdminNavbar({ sidebarCollapsed, onMenuClick }: AdminNavbarProps)
               <input
                 type="text"
                 placeholder="Search..."
-                className="h-9 w-64 rounded-lg border border-input bg-background pl-9 pr-4 text-sm outline-none focus:ring-1 focus:ring-ring"
+                className="h-9 w-40 lg:w-64 rounded-lg border border-input bg-background pl-9 pr-4 text-sm outline-none focus:ring-1 focus:ring-ring"
               />
             </div>
           </div>
@@ -117,6 +118,7 @@ export function AdminNavbar({ sidebarCollapsed, onMenuClick }: AdminNavbarProps)
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
+            className="shrink-0"
           >
             {isDark ? (
               <Sun className="h-5 w-5" />
@@ -128,14 +130,14 @@ export function AdminNavbar({ sidebarCollapsed, onMenuClick }: AdminNavbarProps)
           {/* Notifications */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="relative">
+              <Button variant="ghost" size="icon" className="relative shrink-0">
                 <Bell className="h-5 w-5" />
                 <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-destructive text-[10px] font-bold text-destructive-foreground flex items-center justify-center">
                   3
                 </span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-80">
+            <DropdownMenuContent align="end" className="w-72 sm:w-80">
               <DropdownMenuLabel>Notifications</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="flex flex-col items-start gap-1 py-3">
@@ -160,8 +162,8 @@ export function AdminNavbar({ sidebarCollapsed, onMenuClick }: AdminNavbarProps)
           {/* User Profile */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="relative h-9 w-9 rounded-full">
-                <Avatar className="h-9 w-9">
+              <Button variant="ghost" className="relative h-8 w-8 sm:h-9 sm:w-9 rounded-full shrink-0">
+                <Avatar className="h-8 w-8 sm:h-9 sm:w-9">
                   <AvatarImage src="/avatars/admin.jpg" alt="Admin" />
                   <AvatarFallback>AD</AvatarFallback>
                 </Avatar>
@@ -186,6 +188,6 @@ export function AdminNavbar({ sidebarCollapsed, onMenuClick }: AdminNavbarProps)
           </DropdownMenu>
         </div>
       </div>
-    </motion.header>
+    </header>
   );
 }

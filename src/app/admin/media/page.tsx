@@ -174,16 +174,16 @@ export default function MediaLibraryPage() {
         </div>
       ) : (
         <Card>
-          <CardContent className="p-0">
+          <CardContent className="p-0 overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b bg-muted/50">
                   <th className="p-4 text-left"><Checkbox checked={selectedItems.length === filteredMedia.length} onCheckedChange={(checked) => { checked ? setSelectedItems(filteredMedia.map((i) => i._id)) : setSelectedItems([]); }} /></th>
                   <th className="p-4 text-left text-sm font-medium">Name</th>
-                  <th className="p-4 text-left text-sm font-medium">Type</th>
-                  <th className="p-4 text-left text-sm font-medium">Size</th>
-                  <th className="p-4 text-left text-sm font-medium">Dimensions</th>
-                  <th className="p-4 text-left text-sm font-medium">Uploaded</th>
+                  <th className="p-4 text-left text-sm font-medium hidden sm:table-cell">Type</th>
+                  <th className="p-4 text-left text-sm font-medium hidden md:table-cell">Size</th>
+                  <th className="p-4 text-left text-sm font-medium hidden md:table-cell">Dimensions</th>
+                  <th className="p-4 text-left text-sm font-medium hidden lg:table-cell">Uploaded</th>
                   <th className="p-4 text-right text-sm font-medium">Actions</th>
                 </tr>
               </thead>
@@ -200,13 +200,13 @@ export default function MediaLibraryPage() {
                             <div className="h-full w-full flex items-center justify-center"><Image className="h-5 w-5 text-muted-foreground" /></div>
                           )}
                         </div>
-                        <span className="font-medium">{item.name}</span>
+                        <span className="font-medium truncate max-w-[120px] sm:max-w-none">{item.name}</span>
                       </div>
                     </td>
-                    <td className="p-4"><Badge variant="outline" className="capitalize">{item.type}</Badge></td>
-                    <td className="p-4 text-muted-foreground">{item.size}</td>
-                    <td className="p-4 text-muted-foreground">{item.dimensions || "-"}</td>
-                    <td className="p-4 text-muted-foreground">{item.uploadedAt ? new Date(item.uploadedAt).toLocaleDateString() : ""}</td>
+                    <td className="p-4 hidden sm:table-cell"><Badge variant="outline" className="capitalize">{item.type}</Badge></td>
+                    <td className="p-4 text-muted-foreground hidden md:table-cell">{item.size}</td>
+                    <td className="p-4 text-muted-foreground hidden md:table-cell">{item.dimensions || "-"}</td>
+                    <td className="p-4 text-muted-foreground hidden lg:table-cell">{item.uploadedAt ? new Date(item.uploadedAt).toLocaleDateString() : ""}</td>
                     <td className="p-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <Button variant="ghost" size="icon" onClick={() => handleCopyUrl(item.url, item._id)}>

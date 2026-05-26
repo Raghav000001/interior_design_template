@@ -112,7 +112,7 @@ export default function ConsultationsPage() {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
         {["Pending", "Confirmed", "Completed", "Cancelled"].map((status) => {
           const count = consultations.filter((c) => c.status === status.toLowerCase()).length;
           return (
@@ -164,27 +164,27 @@ export default function ConsultationsPage() {
           {consultations.map((consultation) => (
             <Card key={consultation._id} className="hover:bg-muted/50 transition-colors">
               <CardContent className="p-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div className="flex items-center gap-4">
-                    <Avatar className="h-12 w-12">
+                    <Avatar className="h-12 w-12 shrink-0">
                       <AvatarImage src={`/avatars/${consultation._id}.jpg`} />
                       <AvatarFallback>
                         {consultation.name.split(" ").map((n) => n[0]).join("")}
                       </AvatarFallback>
                     </Avatar>
-                    <div>
-                      <h3 className="font-semibold">{consultation.name}</h3>
-                      <p className="text-sm text-muted-foreground">{consultation.serviceType}</p>
+                    <div className="min-w-0">
+                      <h3 className="font-semibold truncate">{consultation.name}</h3>
+                      <p className="text-sm text-muted-foreground truncate">{consultation.serviceType}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-6">
-                    <div className="flex items-center gap-2 text-sm">
-                      <Calendar className="h-4 w-4 text-muted-foreground" />
-                      <span>{new Date(consultation.preferredDate).toLocaleDateString()}</span>
+                  <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                      <Calendar className="h-4 w-4 shrink-0" />
+                      <span className="hidden sm:inline">{new Date(consultation.preferredDate).toLocaleDateString()}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <Clock className="h-4 w-4 text-muted-foreground" />
-                      <span>{consultation.preferredTime}</span>
+                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                      <Clock className="h-4 w-4 shrink-0" />
+                      <span className="hidden sm:inline">{consultation.preferredTime}</span>
                     </div>
                     <Badge variant={statusColors[consultation.status] as "success" | "warning" | "info" | "secondary"}>
                       {consultation.status}

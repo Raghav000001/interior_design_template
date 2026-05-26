@@ -222,19 +222,19 @@ export default function ProjectsPage() {
               <table className="w-full">
                 <thead>
                   <tr className="border-b bg-muted/50">
-                    <th className="px-4 py-3 text-left text-sm font-medium">Preview</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium hidden sm:table-cell">Preview</th>
                     <th className="px-4 py-3 text-left text-sm font-medium">Title</th>
-                    <th className="px-4 py-3 text-left text-sm font-medium">Location</th>
-                    <th className="px-4 py-3 text-left text-sm font-medium">Category</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium hidden md:table-cell">Location</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium hidden sm:table-cell">Category</th>
                     <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
-                    <th className="px-4 py-3 text-left text-sm font-medium">Date</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium hidden md:table-cell">Date</th>
                     <th className="px-4 py-3 text-right text-sm font-medium">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredProjects.map((project) => (
                     <tr key={project._id} className="border-b transition-colors hover:bg-muted/50">
-                      <td className="px-4 py-3">
+                      <td className="px-4 py-3 hidden sm:table-cell">
                         <div className="h-12 w-16 rounded-md bg-muted overflow-hidden">
                           {project.images?.[0] ? (
                             <img src={project.images[0]} alt="" className="h-full w-full object-cover" />
@@ -249,14 +249,14 @@ export default function ProjectsPage() {
                         <span className="font-medium">{project.title}</span>
                         {project.featured && <Badge variant="default" className="ml-2 text-xs">Featured</Badge>}
                       </td>
-                      <td className="px-4 py-3 text-muted-foreground">{project.location || "-"}</td>
-                      <td className="px-4 py-3">
+                      <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">{project.location || "-"}</td>
+                      <td className="px-4 py-3 hidden sm:table-cell">
                         <Badge variant="outline" className="capitalize">{project.category}</Badge>
                       </td>
                       <td className="px-4 py-3">
                         <Badge variant={statusColors[project.status]}>{project.status}</Badge>
                       </td>
-                      <td className="px-4 py-3 text-muted-foreground">
+                      <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">
                         {new Date(project.createdAt).toLocaleDateString()}
                       </td>
                       <td className="px-4 py-3 text-right">

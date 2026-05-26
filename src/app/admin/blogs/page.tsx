@@ -125,7 +125,7 @@ export default function BlogsPage() {
         </Dialog>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
         {["All", "Published", "Draft", "Featured"].map((filter, i) => (
           <Card key={filter} className="cursor-pointer hover:bg-muted/50"><CardContent className="p-4 text-center"><p className="text-2xl font-bold">{i === 0 ? blogs.length : blogs.filter((b) => b.status?.toLowerCase() === filter.toLowerCase() || b.featured === (filter === "Featured")).length}</p><p className="text-sm text-muted-foreground">{filter}</p></CardContent></Card>
         ))}
@@ -140,23 +140,23 @@ export default function BlogsPage() {
           {filteredBlogs.map((blog) => (
             <Card key={blog._id} className="hover:bg-muted/50 transition-colors">
               <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="h-16 w-24 rounded-lg bg-muted flex items-center justify-center"><FileText className="h-8 w-8 text-muted-foreground" /></div>
-                    <div>
-                      <h3 className="font-semibold">{blog.title}</h3>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <div className="flex items-center gap-4 min-w-0">
+                    <div className="h-14 w-20 sm:h-16 sm:w-24 rounded-lg bg-muted flex items-center justify-center shrink-0"><FileText className="h-8 w-8 text-muted-foreground" /></div>
+                    <div className="min-w-0">
+                      <h3 className="font-semibold truncate">{blog.title}</h3>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1 flex-wrap">
                         <span>{blog.author}</span>
                         <span>•</span>
                         <span className="capitalize">{blog.category}</span>
                         <span>•</span>
-                        <Calendar className="h-3 w-3" />
-                        <span>{blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : ""}</span>
+                        <Calendar className="h-3 w-3 shrink-0" />
+                        <span className="truncate">{blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : ""}</span>
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <div className="text-right"><div className="flex items-center gap-1 text-sm"><ViewIcon className="h-4 w-4" />{blog.views}</div><Badge variant={blog.status === "published" ? "success" : "secondary"}>{blog.status}</Badge></div>
+                  <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+                    <div className="flex items-center gap-2 text-sm"><ViewIcon className="h-4 w-4" /><span>{blog.views}</span><Badge variant={blog.status === "published" ? "success" : "secondary"}>{blog.status}</Badge></div>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild><Button variant="ghost" size="icon"><MoreHorizontal className="h-4 w-4" /></Button></DropdownMenuTrigger>
                       <DropdownMenuContent><DropdownMenuItem><Eye className="mr-2 h-4 w-4" />View</DropdownMenuItem><DropdownMenuItem><Edit className="mr-2 h-4 w-4" />Edit</DropdownMenuItem><DropdownMenuItem className="text-destructive" onClick={() => handleDelete(blog._id)} disabled={deleting === blog._id}>{deleting === blog._id ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Trash2 className="mr-2 h-4 w-4" />}Delete</DropdownMenuItem></DropdownMenuContent>

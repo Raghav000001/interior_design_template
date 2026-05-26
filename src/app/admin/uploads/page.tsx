@@ -107,10 +107,10 @@ export default function UploadsPage() {
                 <thead>
                   <tr className="border-b bg-muted/50">
                     <th className="px-4 py-3 text-left text-sm font-medium">File</th>
-                    <th className="px-4 py-3 text-left text-sm font-medium">Type</th>
-                    <th className="px-4 py-3 text-left text-sm font-medium">Size</th>
-                    <th className="px-4 py-3 text-left text-sm font-medium">Folder</th>
-                    <th className="px-4 py-3 text-left text-sm font-medium">Uploaded</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium hidden sm:table-cell">Type</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium hidden md:table-cell">Size</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium hidden md:table-cell">Folder</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium hidden lg:table-cell">Uploaded</th>
                     <th className="px-4 py-3 text-right text-sm font-medium">Actions</th>
                   </tr>
                 </thead>
@@ -126,13 +126,13 @@ export default function UploadsPage() {
                               <div className="h-full w-full flex items-center justify-center">{typeIcon(upload.type)}</div>
                             )}
                           </div>
-                          <span className="font-medium">{upload.name}</span>
+                          <span className="font-medium truncate max-w-[120px] sm:max-w-none">{upload.name}</span>
                         </div>
                       </td>
-                      <td className="px-4 py-3"><Badge variant="outline">{upload.type}</Badge></td>
-                      <td className="px-4 py-3 text-muted-foreground">{upload.size || "-"}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{upload.folder || "-"}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{upload.uploadedAt ? new Date(upload.uploadedAt).toLocaleString() : "-"}</td>
+                      <td className="px-4 py-3 hidden sm:table-cell"><Badge variant="outline">{upload.type}</Badge></td>
+                      <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">{upload.size || "-"}</td>
+                      <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">{upload.folder || "-"}</td>
+                      <td className="px-4 py-3 text-muted-foreground hidden lg:table-cell">{upload.uploadedAt ? new Date(upload.uploadedAt).toLocaleString() : "-"}</td>
                       <td className="px-4 py-3 text-right">
                         <div className="flex items-center justify-end gap-2">
                           <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => window.open(upload.url, "_blank")}>

@@ -130,7 +130,7 @@ export default function LeadsPage() {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-5">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-5">
         {statuses.slice(1).map((status) => {
           const count = leads.filter((l) => l.status === status).length;
           return (
@@ -201,10 +201,10 @@ export default function LeadsPage() {
                 <thead>
                   <tr className="border-b bg-muted/50">
                     <th className="px-4 py-3 text-left text-sm font-medium">Lead</th>
-                    <th className="px-4 py-3 text-left text-sm font-medium">Company</th>
-                    <th className="px-4 py-3 text-left text-sm font-medium">Source</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium hidden sm:table-cell">Company</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium hidden md:table-cell">Source</th>
                     <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
-                    <th className="px-4 py-3 text-left text-sm font-medium">Date</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium hidden sm:table-cell">Date</th>
                     <th className="px-4 py-3 text-right text-sm font-medium">Actions</th>
                   </tr>
                 </thead>
@@ -216,20 +216,20 @@ export default function LeadsPage() {
                     >
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-3">
-                          <Avatar className="h-9 w-9">
+                          <Avatar className="h-9 w-9 shrink-0">
                             <AvatarImage src={`/avatars/${lead._id}.jpg`} />
                             <AvatarFallback>
                               {lead.name.split(" ").map((n) => n[0]).join("")}
                             </AvatarFallback>
                           </Avatar>
-                          <div>
-                            <p className="font-medium">{lead.name}</p>
-                            <p className="text-xs text-muted-foreground">{lead.email}</p>
+                          <div className="min-w-0">
+                            <p className="font-medium truncate">{lead.name}</p>
+                            <p className="text-xs text-muted-foreground truncate">{lead.email}</p>
                           </div>
                         </div>
                       </td>
-                      <td className="px-4 py-3">{lead.company}</td>
-                      <td className="px-4 py-3">
+                      <td className="px-4 py-3 hidden sm:table-cell">{lead.company}</td>
+                      <td className="px-4 py-3 hidden md:table-cell">
                         <Badge variant="outline">{lead.source || "N/A"}</Badge>
                       </td>
                       <td className="px-4 py-3">
@@ -237,7 +237,7 @@ export default function LeadsPage() {
                           {lead.status}
                         </Badge>
                       </td>
-                      <td className="px-4 py-3 text-muted-foreground">
+                      <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell">
                         {new Date(lead.createdAt).toLocaleDateString()}
                       </td>
                       <td className="px-4 py-3 text-right">

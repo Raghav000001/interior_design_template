@@ -222,11 +222,11 @@ export default function SEOPage() {
               <div className="flex items-center justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>
             ) : (
               <Tabs defaultValue="general" className="space-y-4">
-                <TabsList>
-                  <TabsTrigger value="general" className="gap-2"><FileText className="h-4 w-4" />General</TabsTrigger>
-                  <TabsTrigger value="opengraph" className="gap-2"><Share2 className="h-4 w-4" />Open Graph</TabsTrigger>
-                  <TabsTrigger value="robots" className="gap-2"><Bot className="h-4 w-4" />Robots</TabsTrigger>
-                  <TabsTrigger value="preview" className="gap-2"><Eye className="h-4 w-4" />Preview</TabsTrigger>
+                <TabsList className="overflow-x-auto flex-nowrap">
+                  <TabsTrigger value="general" className="gap-2 shrink-0"><FileText className="h-4 w-4" />General</TabsTrigger>
+                  <TabsTrigger value="opengraph" className="gap-2 shrink-0"><Share2 className="h-4 w-4" />Open Graph</TabsTrigger>
+                  <TabsTrigger value="robots" className="gap-2 shrink-0"><Bot className="h-4 w-4" />Robots</TabsTrigger>
+                  <TabsTrigger value="preview" className="gap-2 shrink-0"><Eye className="h-4 w-4" />Preview</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="general" className="space-y-4">

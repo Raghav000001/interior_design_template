@@ -121,7 +121,7 @@ export default function BrochuresPage() {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-3">
         {["New", "Downloaded", "Contacted"].map((status) => {
           const count = brochures.filter((b) => b.status === status.toLowerCase()).length;
           return (
@@ -173,22 +173,22 @@ export default function BrochuresPage() {
           {brochures.map((brochure) => (
             <Card key={brochure._id} className="hover:bg-muted/50 transition-colors">
               <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <div className="flex items-center gap-4 min-w-0">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 shrink-0">
                       <FileDown className="h-6 w-6 text-primary" />
                     </div>
-                    <div>
-                      <h3 className="font-semibold">{brochure.name}</h3>
-                      <p className="text-sm text-muted-foreground">
+                    <div className="min-w-0">
+                      <h3 className="font-semibold truncate">{brochure.name}</h3>
+                      <p className="text-sm text-muted-foreground truncate">
                         {brochure.brochureType} {brochure.company ? `- ${brochure.company}` : ""}
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-6">
-                    <div className="flex items-center gap-2 text-sm">
-                      <Mail className="h-4 w-4 text-muted-foreground" />
-                      <span>{brochure.email}</span>
+                  <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
+                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                      <Mail className="h-4 w-4 shrink-0" />
+                      <span className="hidden sm:inline truncate max-w-[120px]">{brochure.email}</span>
                     </div>
                     <Badge variant={statusColors[brochure.status] as "default" | "info" | "warning"}>
                       {brochure.status}
