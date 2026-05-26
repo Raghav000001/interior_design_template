@@ -7,7 +7,7 @@ import { LeadsChart, ProjectsChart, ConsultationsChart } from "@/components/char
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Mail, Phone, Calendar, ArrowRight, AlertCircle, Loader2 } from "lucide-react";
+import { Mail, Phone, Calendar, ArrowRight, AlertCircle, Loader2, RefreshCw } from "lucide-react";
 
 const container = {
   hidden: { opacity: 0 },
@@ -85,11 +85,30 @@ export default function AdminDashboardPage() {
       animate="show"
       className="space-y-8"
     >
-      <motion.div variants={item}>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground mt-1">
-          Welcome back! Here&apos;s what&apos;s happening with your business.
-        </p>
+      <motion.div variants={item} className="flex items-start justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+          <p className="text-muted-foreground mt-1">
+            Welcome back! Here&apos;s what&apos;s happening with your business.
+          </p>
+        </div>
+        <button
+          onClick={async () => {
+            if (!window.confirm("Clear browser cache and reload the page? This will not affect your data.")) return;
+            try {
+              if ("caches" in window) {
+                const keys = await caches.keys();
+                await Promise.all(keys.map((key) => caches.delete(key)));
+              }
+            } catch {}
+            window.location.href = window.location.pathname + "?t=" + Date.now();
+          }}
+          className="hidden sm:inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors shrink-0"
+          title="Clear browser cache"
+        >
+          <RefreshCw className="h-4 w-4" />
+          Clear Cache
+        </button>
       </motion.div>
 
       <motion.div variants={item} className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

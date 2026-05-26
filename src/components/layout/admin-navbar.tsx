@@ -13,6 +13,7 @@ import {
   Moon,
   Sun,
   Menu,
+  Trash2,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -182,6 +183,23 @@ export function AdminNavbar({ sidebarCollapsed, onMenuClick }: AdminNavbarProps)
               <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Help & Support</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={async () => {
+                  if (!window.confirm("Clear browser cache and reload the page? This will not affect your data.")) return;
+                  try {
+                    if ("caches" in window) {
+                      const keys = await caches.keys();
+                      await Promise.all(keys.map((key) => caches.delete(key)));
+                    }
+                  } catch {}
+                  window.location.href = window.location.pathname + "?t=" + Date.now();
+                }}
+                className="text-muted-foreground"
+              >
+                <Trash2 className="mr-2 h-4 w-4" />
+                Clear Browser Cache
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="text-destructive">Log out</DropdownMenuItem>
             </DropdownMenuContent>
