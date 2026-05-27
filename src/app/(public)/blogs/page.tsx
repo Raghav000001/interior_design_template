@@ -201,26 +201,26 @@ export default function BlogsPage() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] as const }}
-          className="relative z-10 text-center max-w-4xl mx-auto px-6 pt-24 pb-16"
+          className="relative z-10 text-center max-w-4xl mx-auto px-4 pt-20 pb-12 sm:px-6 sm:pt-24 sm:pb-16"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-4 py-1.5 text-sm text-white/80 mb-8"
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-3 py-1 text-xs text-white/80 sm:px-4 sm:py-1.5 sm:text-sm mb-6 sm:mb-8"
           >
-            <Sparkles className="h-3.5 w-3.5 text-primary" />
+            <Sparkles className="h-3 w-3 text-primary sm:h-3.5 sm:w-3.5" />
             <span>Design Insights & Inspiration</span>
           </motion.div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[1.1]">
+          <h1 className="text-4xl font-bold tracking-tight text-white leading-[1.1] sm:text-5xl md:text-7xl lg:text-8xl">
             Our
             <br />
             <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               Journal
             </span>
           </h1>
-          <p className="mt-6 text-lg md:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-4 text-base text-white/80 max-w-2xl mx-auto leading-relaxed sm:mt-6 sm:text-lg md:text-xl">
             Stories, insights, and expert perspectives from the front lines of
             interior design — where creativity meets craftsmanship.
           </p>
@@ -229,18 +229,18 @@ export default function BlogsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-4"
+            className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4"
           >
             <Link
               href="#latest"
-              className="group inline-flex items-center gap-2 bg-gradient-to-r from-primary to-secondary text-white font-semibold px-8 py-3.5 rounded-2xl shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:scale-105 active:scale-95 transition-all duration-300"
+              className="group inline-flex w-full sm:w-auto items-center justify-center gap-2 bg-gradient-to-r from-primary to-secondary text-white font-semibold px-6 py-3 text-sm sm:px-8 sm:py-3.5 sm:text-base rounded-2xl shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:scale-105 active:scale-95 transition-all duration-300"
             >
               Read Latest
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
             <Link
               href="/contact"
-              className="group inline-flex items-center gap-2 border border-white/20 bg-white/10 backdrop-blur-sm text-white/90 px-8 py-3.5 rounded-2xl hover:bg-white/20 hover:scale-105 active:scale-95 transition-all duration-300"
+              className="group inline-flex w-full sm:w-auto items-center justify-center gap-2 border border-white/20 bg-white/10 backdrop-blur-sm text-white/90 px-6 py-3 text-sm sm:px-8 sm:py-3.5 sm:text-base rounded-2xl hover:bg-white/20 hover:scale-105 active:scale-95 transition-all duration-300"
             >
               Share Your Story
             </Link>
@@ -253,31 +253,31 @@ export default function BlogsPage() {
       {/* ════════════════════════════════════════ */}
       {/* STATS */}
       {/* ════════════════════════════════════════ */}
-      <section className="relative -mt-16 z-20 max-w-6xl mx-auto px-6">
+      <section className="relative -mt-16 z-20 max-w-6xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-px rounded-3xl overflow-hidden glossy shadow-xl"
+          className="grid grid-cols-2 gap-px rounded-2xl sm:rounded-3xl overflow-hidden glossy shadow-xl"
         >
           {STATS.map((stat) => {
             const Icon = stat.icon;
             return (
               <div
                 key={stat.label}
-                className="relative bg-card/60 backdrop-blur-xl px-8 py-10 text-center group hover:bg-card/80 transition-colors duration-500"
+                className="relative bg-card/60 backdrop-blur-xl px-4 py-6 sm:px-8 sm:py-10 text-center group hover:bg-card/80 transition-colors duration-500"
               >
                 <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative flex justify-center mb-3">
-                  <div className="inline-flex p-2 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10">
-                    <Icon className="w-4 h-4 text-primary" />
+                <div className="relative flex justify-center mb-2 sm:mb-3">
+                  <div className="inline-flex p-1.5 sm:p-2 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10">
+                    <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
                   </div>
                 </div>
-                <span className="relative text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                <span className="relative text-2xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                   {stat.value}
                 </span>
-                <p className="relative mt-2 text-sm text-muted-foreground font-medium tracking-wide uppercase">
+                <p className="relative mt-1 sm:mt-2 text-[10px] sm:text-sm text-muted-foreground font-medium tracking-wide uppercase">
                   {stat.label}
                 </p>
               </div>
@@ -302,18 +302,18 @@ export default function BlogsPage() {
       {/* LATEST ARTICLES */}
       {/* ════════════════════════════════════════ */}
       <section id="latest" className="container mx-auto px-4 pb-20">
-        <motion.div {...fadeUp} className="mb-12 text-center max-w-3xl mx-auto">
-          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-primary mb-4">
+        <motion.div {...fadeUp} className="mb-8 sm:mb-12 text-center max-w-3xl mx-auto">
+          <span className="inline-block text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-primary mb-3 sm:mb-4">
             Dive Deeper
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3 sm:mb-4">
             Latest
             <br />
             <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               Articles
             </span>
           </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          <p className="text-sm sm:text-lg text-muted-foreground leading-relaxed px-2 sm:px-0">
             Dive deeper into design principles, trends, and expert advice from
             our award-winning team.
           </p>
@@ -354,7 +354,7 @@ export default function BlogsPage() {
       {/* ════════════════════════════════════════ */}
       {/* CTA */}
       {/* ════════════════════════════════════════ */}
-      <section className="relative py-28 overflow-hidden">
+      <section className="relative py-16 sm:py-28 overflow-hidden">
         <div
           className="absolute inset-0 z-0"
           style={{
@@ -371,23 +371,23 @@ export default function BlogsPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] as const }}
-          className="relative z-10 max-w-3xl mx-auto px-6 text-center"
+          className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
             Have a Story to Tell?
             <br />
             <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               We&apos;d Love to Feature It
             </span>
           </h2>
-          <p className="mt-6 text-lg text-white/70 max-w-2xl mx-auto">
+          <p className="mt-4 sm:mt-6 text-sm sm:text-lg text-white/70 max-w-2xl mx-auto px-2 sm:px-0">
             Whether it&apos;s a remarkable renovation, a design challenge you
             overcame, or insights from your creative journey — share your
             experience with our community.
           </p>
           <Link
             href="/contact"
-            className="group mt-10 inline-flex items-center gap-2 bg-gradient-to-r from-primary to-secondary text-white font-semibold px-10 py-4 rounded-2xl shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:scale-105 active:scale-95 transition-all duration-300"
+            className="group mt-8 sm:mt-10 inline-flex w-full sm:w-auto items-center justify-center gap-2 bg-gradient-to-r from-primary to-secondary text-white font-semibold px-6 py-3 text-sm sm:px-10 sm:py-4 sm:text-base rounded-2xl shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:scale-105 active:scale-95 transition-all duration-300"
           >
             Submit Your Story
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

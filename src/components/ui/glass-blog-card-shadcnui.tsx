@@ -49,7 +49,7 @@ export function GlassBlogCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className={cn("w-full max-w-[400px]", className)}
+      className={cn("w-full", className)}
     >
       <Card className="group relative h-full overflow-hidden rounded-2xl border-border/50 bg-card/30 backdrop-blur-md transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10">
         <div className="relative aspect-[16/9] overflow-hidden">
@@ -84,9 +84,9 @@ export function GlassBlogCard({
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 p-5">
-          <div className="space-y-2">
-            <h3 className="text-xl font-semibold leading-tight tracking-tight text-foreground transition-colors group-hover:text-primary">
+        <div className="flex flex-col gap-3 p-4 sm:gap-4 sm:p-5">
+          <div className="space-y-1 sm:space-y-2">
+            <h3 className="text-lg font-semibold leading-tight tracking-tight text-foreground transition-colors group-hover:text-primary sm:text-xl">
               {title}
             </h3>
             <p className="line-clamp-2 text-sm text-muted-foreground">

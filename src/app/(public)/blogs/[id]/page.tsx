@@ -250,59 +250,59 @@ export default function BlogDetailPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-        <div className="container relative z-10 mx-auto px-4 pb-12 text-white">
+        <div className="container relative z-10 mx-auto px-4 pb-10 sm:pb-12 text-white">
           <Link
             href="/blogs"
-            className="mb-6 flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-white"
+            className="mb-4 sm:mb-6 flex items-center gap-2 text-xs sm:text-sm text-white/70 transition-colors hover:text-white"
           >
-            <ChevronLeft className="size-4" />
+            <ChevronLeft className="size-3 sm:size-4" />
             Back to Blogs
           </Link>
 
-          <span className="mb-3 inline-block rounded-md bg-white/20 px-3 py-1 text-sm font-medium capitalize backdrop-blur-sm">
+          <span className="mb-2 sm:mb-3 inline-block rounded-md bg-white/20 px-2 py-0.5 text-xs sm:px-3 sm:py-1 sm:text-sm font-medium capitalize backdrop-blur-sm">
             {blog.category}
           </span>
 
-          <h1 className="max-w-4xl text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
+          <h1 className="max-w-4xl text-xl font-bold leading-tight sm:text-2xl md:text-4xl lg:text-5xl">
             {blog.title}
           </h1>
 
-          <div className="mt-4 flex flex-wrap items-center gap-5 text-sm text-white/70">
-            <span className="flex items-center gap-1.5">
-              <User className="size-4" />
+          <div className="mt-3 sm:mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm text-white/70">
+            <span className="flex items-center gap-1 sm:gap-1.5">
+              <User className="size-3 sm:size-4" />
               {blog.author}
             </span>
-            <span className="flex items-center gap-1.5">
-              <Calendar className="size-4" />
+            <span className="flex items-center gap-1 sm:gap-1.5">
+              <Calendar className="size-3 sm:size-4" />
               {blog.date}
             </span>
-            <span className="flex items-center gap-1.5">
-              <Eye className="size-4" />
+            <span className="flex items-center gap-1 sm:gap-1.5">
+              <Eye className="size-3 sm:size-4" />
               {blog.views.toLocaleString()} views
             </span>
-            <span className="flex items-center gap-1.5">
-              <Clock className="size-4" />
+            <span className="flex items-center gap-1 sm:gap-1.5">
+              <Clock className="size-3 sm:size-4" />
               {blog.readTime} min read
             </span>
           </div>
         </div>
       </section>
 
-      <section className="container mx-auto px-4 py-16">
-        <article className="prose prose-lg mx-auto max-w-3xl dark:prose-invert">
+      <section className="container mx-auto px-4 py-10 sm:py-16">
+        <article className="prose prose-sm sm:prose-lg mx-auto max-w-3xl dark:prose-invert">
           {blog.content.map((paragraph, index) => (
-            <p key={index} className="text-lg leading-relaxed text-foreground/80 first:mt-0">
+            <p key={index} className="text-base sm:text-lg leading-relaxed text-foreground/80 first:mt-0">
               {paragraph}
             </p>
           ))}
         </article>
 
-        <div className="mx-auto mt-12 flex max-w-3xl flex-wrap items-center gap-2 border-t pt-8">
-          <Tag className="size-4 text-muted-foreground" />
+        <div className="mx-auto mt-8 sm:mt-12 flex max-w-3xl flex-wrap items-center gap-2 border-t pt-6 sm:pt-8">
+          <Tag className="size-3 sm:size-4 text-muted-foreground" />
           {blog.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-secondary px-3 py-1 text-sm capitalize text-secondary-foreground"
+              className="rounded-full bg-secondary px-2 py-0.5 text-xs sm:px-3 sm:py-1 sm:text-sm capitalize text-secondary-foreground"
             >
               {tag}
             </span>
@@ -310,12 +310,12 @@ export default function BlogDetailPage() {
         </div>
       </section>
 
-      <section className="bg-secondary/30 py-16">
+      <section className="bg-secondary/30 py-10 sm:py-16">
         <div className="container mx-auto px-4">
-          <h2 className="mb-10 text-2xl font-semibold md:text-3xl">
+          <h2 className="mb-6 sm:mb-10 text-xl sm:text-2xl font-semibold md:text-3xl">
             Related Articles
           </h2>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {RELATED_POSTS.map((post) => (
               <Link key={post.slug} href={`/blogs/${post.slug}`}>
                 <GlassBlogCard
