@@ -164,7 +164,7 @@ export function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps) {
         width: collapsed ? 72 : 280,
       }}
       transition={{ duration: 0.2, ease: "easeInOut" }}
-      className="fixed left-0 top-0 z-40 h-screen border-r border-sidebar-border bg-sidebar"
+      className="fixed left-0 top-0 z-40 h-screen border-r border-sidebar-border bg-sidebar-background"
     >
       <div className="flex h-full flex-col">
         {/* Logo */}

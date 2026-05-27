@@ -30,7 +30,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
             className="fixed inset-0 bg-black/50"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="fixed left-0 top-0 z-50 h-screen w-[280px] bg-sidebar">
+          <div className="fixed left-0 top-0 z-50 h-screen w-[280px] bg-sidebar-background">
             <AdminSidebar
               collapsed={false}
               onToggle={() => setMobileOpen(false)}
